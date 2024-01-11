@@ -2,15 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\Auth\RegisteredUserController;
-use App\Http\Controllers\API\Auth\VerifyEmailController;
-use App\Http\Controllers\API\Auth\UserLoginController;
+use App\Http\Controllers\Api\Auth\RegisteredUserController;
+use App\Http\Controllers\Api\Auth\VerifyEmailController;
+use App\Http\Controllers\Api\Auth\UserLoginController;
 use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\Role\AssignPermissionsToRoleController;
 use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\User\AssignRoleToUserController;
+use App\Http\Controllers\Api\User\AttachRoleToUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +34,8 @@ Route::post('register', [RegisteredUserController::class, 'store'])->middleware(
 Route::get('email/verify/{id}/{hash}', [VerifyEmailController::class, 'verifyAccount'])->name('verification.verify');
 Route::post('login', [UserLoginController::class, 'login'])->name('login');
 
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.forgot');
-Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.reset');
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.forgot');
+Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.reset');
 
 Route::post('logout', [UserLoginController::class, 'logout'])->middleware('auth:api')->name('logout');
 
@@ -55,6 +55,6 @@ Route::middleware(['auth:api'])->group(function () {
     # -------------- User Routes -------------------- #
 
     Route::prefix('user')->group(function () {
-        Route::post('assign-role', [AssignRoleToUserController::class, 'store']);
+        Route::post('assign-role', [AttachRoleToUserController::class, 'store']);
     });
 });

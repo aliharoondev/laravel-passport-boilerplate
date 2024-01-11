@@ -26,7 +26,7 @@ class AssignRoleToUserRequest extends FormRequest
             'user' => ['required', 'integer', 'exists:users,id', Rule::exists('users', 'id')->where(function ($query) {
                 $query->where('is_active', 1);
             })],
-            'roles' => ['required', 'array', 'max:2'],
+            'roles' => ['required', 'array'],
             'roles.*' => ['required', 'integer', 'exists:roles,id', Rule::exists('roles', 'id')->where(function ($query) {
                 $query->where('is_active', 1);
             })],
