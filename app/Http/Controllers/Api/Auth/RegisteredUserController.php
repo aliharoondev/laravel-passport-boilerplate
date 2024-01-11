@@ -25,7 +25,6 @@ class RegisteredUserController extends Controller
 
             $authToken = $user->createToken('cuterabackend')->accessToken;
 
-            logger(['token' => $authToken]);
             event(new UserRegistered($user));
 
             return response()->json([
