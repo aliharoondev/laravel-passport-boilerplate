@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Auth;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UserEmailVerificationRequest;
@@ -19,15 +19,15 @@ class VerifyEmailController extends Controller
 
             if ($user->hasVerifiedEmail()) {
                 return response()->json(['message' => 'Account is already verified.', 'data' => $user], 201);
-                
+
             }
 
             if ($user->markEmailAsVerified()) {
                 event(new Verified($user));
             }
             return response()->json(['message' => 'Account verified successfully', 'data' => $user], 201);
-           
-            
+
+
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'User not found', 'data' => []], 422);
         } catch (DecryptException | \Exception $e) {
